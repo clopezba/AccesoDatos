@@ -141,6 +141,25 @@ public class AccesoBDatos {
 			return resultado;
 		}		
 	}
+	public int actualizarSalarioConTransacciones(int departamento, double porcentaje) {
+		int resultado = 0;
+		try {
+			conecta.setAutoCommit(false);
+			PreparedStatement prep = conecta.prepareStatement(
+					"UPDATE emp SET sal= sal+sal*? WHERE deptno=?");
+			prep.setDouble(1, porcentaje);
+			prep.setInt(2, departamento);
+			
+			resultado = prep.executeUpdate();
+			conecta.commit();
+			return resultado;
+		} catch (SQLException e) {
+			resultado = e.getErrorCode();
+			return resultado;
+		}
+		
+	}
+	
 	
 	public int borrarEmpleado(int numero) {
 		int resultado = 0;

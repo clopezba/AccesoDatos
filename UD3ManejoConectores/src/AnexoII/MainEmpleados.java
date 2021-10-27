@@ -51,6 +51,8 @@ public class MainEmpleados {
 			System.out.println(abd.borrarEmpleado(99));
 			System.out.println(abd.borrarEmpleado(7839));
 			
+			//Anexo IV - Transacciones
+			System.out.println(abd.actualizarSalarioConTransacciones(10, -0.1));
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
