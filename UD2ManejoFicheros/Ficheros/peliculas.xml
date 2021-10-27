@@ -1,0 +1,20 @@
+<peliculas>
+  <pelicula>
+    <id>1</id>
+    <titulo>El Señor de los Anillos: la Comunidad del Anillo</titulo>
+    <anyo>2001</anyo>
+    <descripcion>Ambientada en la Tierra Media...</descripcion>
+  </pelicula>
+  <pelicula>
+    <id>2</id>
+    <titulo>El Señor de los Anillos: las dos torres</titulo>
+    <anyo>2002</anyo>
+    <descripcion>La trama de la película...</descripcion>
+  </pelicula>
+  <pelicula>
+    <id>3</id>
+    <titulo>El Señor de los Anillos: el retorno del Rey</titulo>
+    <anyo>2003</anyo>
+    <descripcion>Trata sobre la última parte del viaje...</descripcion>
+  </pelicula>
+</peliculas>
