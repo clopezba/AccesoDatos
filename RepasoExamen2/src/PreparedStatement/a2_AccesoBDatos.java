@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class a1_AccesoBDatos {
+public class a2_AccesoBDatos {
 	private static String driver = "com.mysql.cj.jdbc.Driver";
-	private static String database = "baloncesto";
+	private static String database = "sample";
 	private static String hostname = "localhost";
 	private static String port = "3306";
 	private static String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
@@ -25,36 +25,42 @@ public class a1_AccesoBDatos {
 			e.printStackTrace();
 		}
 	}
-	public void consultarPorLocalidad(String localidad) {
+	
+	public boolean validar(String user, String pass) {
 		try {
-			PreparedStatement pre = conecta.prepareStatement("SELECT * FROM socio WHERE localidad LIKE ?", 
-					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			pre.setString(1, "%" + localidad + "%");
-			ResultSet res = pre.executeQuery();
-			imprimirDatos(res);
+			PreparedStatement pre = conecta.prepareStatement("SELECT * FROM usuario WHERE username=? AND password=?");
+			pre.setString(1, user);
+			pre.setString(2, pass);
 			
+			ResultSet res = pre.executeQuery();
+			if(res.next()) {
+				return true;
+			}
+			else
+				return false;
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
+			return false;
 		}
 		
 	}
-	
-	public void imprimirDatos(ResultSet rs) {
+	public String nombreCompleto(String user) {
 		try {
-			if(rs.next()) {
-				System.out.println("Id: " + rs.getInt(1) + " | Nombre: " + rs.getString(2) + " | Estatura: " 
-					+ rs.getInt(3) + " cm. | Edad:" + rs.getInt(4) + " años | Localidad: " + rs.getString(5));
+			PreparedStatement pre = conecta.prepareStatement("SELECT nombre FROM usuario WHERE username=?");
+			pre.setString(1, user);
+			ResultSet res = pre.executeQuery();
+			
+			if(res.next()) {
+				return res.getString(1);
 			}
-			while(rs.next()) {
-				System.out.println("Id: " + rs.getInt(1) + " | Nombre: " + rs.getString(2) + " | Estatura: " 
-						+ rs.getInt(3) + " cm. | Edad:" + rs.getInt(4) + " años | Localidad: " + rs.getString(5));
-			}
-			rs.last();
-			System.out.println("__________________________________________________________________");
-			System.out.println("Total de socios: " + rs.getRow());
+			else
+				return null;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
+		
 	}
 	
 	public void desconectar() {
@@ -65,6 +71,4 @@ public class a1_AccesoBDatos {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
