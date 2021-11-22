@@ -10,16 +10,20 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ComponentOrientation;
+import java.awt.Font;
+import javax.swing.JFormattedTextField;
 
 public class vistaEmp {
 
-	private JFrame frame;
-	private JTextField txtEmpNum;
-	private JTextField txtApellido;
-	private JTextField txtOficio;
-	private JTextField txtSalario;
-	private JTextField txtComision;
-	private JTextField txtFecha;
+	protected JFrame frame;
+	protected JTextField txtEmpNum;
+	protected JTextField txtApellido;
+	protected JTextField txtOficio;
+	protected JTextField txtSalario;
+	protected JTextField txtComision;
+	protected JTextField txtFecha;
+	protected JButton btnConsultar,btnInsertar, btnModificar, btnEliminar, btnSalir, btnLimpiar;
+	protected JComboBox<String> cmbDep, cmbDirec;
 
 	/**
 	 * Launch the application.
@@ -49,32 +53,33 @@ public class vistaEmp {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 494, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblTitulo = new JLabel("GESTI\u00D3N DE EMPLEADOS");
-		lblTitulo.setBounds(60, 23, 129, 25);
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTitulo.setBounds(60, 11, 173, 25);
 		frame.getContentPane().add(lblTitulo);
 		
 		JLabel lblEmpNum = new JLabel("N\u00BA EMPLEADO:");
-		lblEmpNum.setBounds(24, 57, 77, 25);
+		lblEmpNum.setBounds(10, 54, 93, 25);
 		frame.getContentPane().add(lblEmpNum);
 		
 		JLabel lblApellido = new JLabel("APELLIDO:");
-		lblApellido.setBounds(24, 80, 77, 25);
+		lblApellido.setBounds(10, 77, 93, 25);
 		frame.getContentPane().add(lblApellido);
 		
 		JLabel lblOficio = new JLabel("OFICIO:");
-		lblOficio.setBounds(24, 104, 77, 25);
+		lblOficio.setBounds(10, 101, 93, 25);
 		frame.getContentPane().add(lblOficio);
 		
 		JLabel lblSalario = new JLabel("SALARIO:");
-		lblSalario.setBounds(24, 127, 77, 25);
+		lblSalario.setBounds(10, 124, 93, 25);
 		frame.getContentPane().add(lblSalario);
 		
 		JLabel lblComision = new JLabel("COMISI\u00D3N:");
-		lblComision.setBounds(24, 150, 77, 25);
+		lblComision.setBounds(10, 147, 93, 25);
 		frame.getContentPane().add(lblComision);
 		
 		txtEmpNum = new JTextField();
@@ -103,55 +108,76 @@ public class vistaEmp {
 		frame.getContentPane().add(txtComision);
 		
 		JLabel lblFecha = new JLabel("FECHA ALTA:");
-		lblFecha.setBounds(199, 150, 71, 25);
+		lblFecha.setBounds(209, 150, 87, 25);
 		frame.getContentPane().add(lblFecha);
 		
 		txtFecha = new JTextField();
 		txtFecha.setColumns(10);
-		txtFecha.setBounds(266, 152, 86, 20);
+		txtFecha.setBounds(296, 152, 86, 20);
 		frame.getContentPane().add(txtFecha);
 		
 		JLabel lblFormat = new JLabel("(yyyy-MM-dd)");
-		lblFormat.setBounds(353, 150, 71, 25);
+		lblFormat.setBounds(382, 150, 86, 25);
 		frame.getContentPane().add(lblFormat);
 		
-		JButton btnNewButton = new JButton("CONSULTAR EMPLEADO");
-		btnNewButton.setBounds(222, 52, 202, 24);
-		frame.getContentPane().add(btnNewButton);
+		btnConsultar = new JButton("CONSULTAR EMPLEADO");
+		btnConsultar.setBounds(222, 52, 202, 24);
+		frame.getContentPane().add(btnConsultar);
 		
-		JComboBox cmbDep = new JComboBox();
-		cmbDep.setModel(new DefaultComboBoxModel(new String[] {"Elige Departamento"}));
+		cmbDep = new JComboBox<String>();
+		cmbDep.setModel(new DefaultComboBoxModel<String>(new String[] {"Elige Departamento"}));
 		cmbDep.setBounds(286, 92, 138, 22);
 		frame.getContentPane().add(cmbDep);
 		
-		JComboBox cmbDirec = new JComboBox();
-		cmbDirec.setModel(new DefaultComboBoxModel(new String[] {"Elige Director"}));
+		cmbDirec = new JComboBox<String>();
+		cmbDirec.setModel(new DefaultComboBoxModel<String>(new String[] {"Elige Director"}));
 		cmbDirec.setBounds(286, 120, 138, 22);
 		frame.getContentPane().add(cmbDirec);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(60, 186, 307, 64);
+		panel.setBounds(60, 186, 349, 64);
 		frame.getContentPane().add(panel);
 		
-		JButton btnInsertar = new JButton("INSERTAR");
-		btnInsertar.setPreferredSize(new Dimension(91, 20));
+		btnInsertar = new JButton("INSERTAR");
+		btnInsertar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnInsertar);
 		
-		JButton btnEliminar = new JButton("ELIMINAR");
-		btnEliminar.setPreferredSize(new Dimension(91, 20));
+		btnEliminar = new JButton("ELIMINAR");
+		btnEliminar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnEliminar);
 		
-		JButton btnModificar = new JButton("MODIFICAR");
-		btnModificar.setPreferredSize(new Dimension(91, 20));
+		btnModificar = new JButton("MODIFICAR");
+		btnModificar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnModificar);
 		
-		JButton btnSalir = new JButton("SALIR");
-		btnSalir.setPreferredSize(new Dimension(91, 20));
+		btnSalir = new JButton("SALIR");
+		btnSalir.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnSalir);
 		
-		JButton btnLimpiar = new JButton("LIMPIAR");
-		btnLimpiar.setPreferredSize(new Dimension(91, 20));
+		btnLimpiar = new JButton("LIMPIAR");
+		btnLimpiar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnLimpiar);
+		
+		frame.setVisible(true);
+	}
+	public void conectaControlador(Controlador con) {
+		btnConsultar.addActionListener(con);
+		btnConsultar.setActionCommand("CONSULTAR");
+		
+		btnInsertar.addActionListener(con);
+		btnInsertar.setActionCommand("INSERTAR");
+		
+		btnEliminar.addActionListener(con);
+		btnEliminar.setActionCommand("ELIMINAR");
+		
+		btnModificar.addActionListener(con);
+		btnModificar.setActionCommand("MODIFICAR");
+		
+		btnSalir.addActionListener(con);
+		btnSalir.setActionCommand("SALIR");
+		
+		btnLimpiar.addActionListener(con);
+		btnLimpiar.setActionCommand("LIMPIAR");
 	}
 }
