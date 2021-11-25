@@ -1,10 +1,13 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -19,6 +22,12 @@ public class Controlador implements ActionListener{
 	
 	Controlador(vistaEmp vista){
 		this.vista = vista;
+	}
+	public void rellenarDepartamento() {
+		Query q = session.createQuery("from Departamentos");
+		List<Departamentos> lista = q.list();
+		Iterator <Departamentos> iter = lista.iterator();
+		
 	}
 	
 	
