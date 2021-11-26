@@ -24,6 +24,7 @@ public class vistaEmp {
 	protected JTextField txtFecha;
 	protected JButton btnConsultar,btnInsertar, btnModificar, btnEliminar, btnSalir, btnLimpiar;
 	protected JComboBox<String> cmbDep, cmbDirec;
+	
 
 	/**
 	 * Launch the application.
