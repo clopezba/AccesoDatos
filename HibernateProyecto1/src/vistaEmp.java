@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -11,17 +12,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.NumberFormat;
+
 import javax.swing.JFormattedTextField;
 
 public class vistaEmp {
 
 	protected JFrame frame;
-	protected JTextField txtEmpNum;
 	protected JTextField txtApellido;
 	protected JTextField txtOficio;
 	protected JTextField txtSalario;
 	protected JTextField txtComision;
 	protected JTextField txtFecha;
+	protected JFormattedTextField txtEmpNum;
 	protected JButton btnConsultar,btnInsertar, btnModificar, btnEliminar, btnSalir, btnLimpiar;
 	protected JComboBox<String> cmbDep, cmbDirec;
 	
@@ -83,10 +88,6 @@ public class vistaEmp {
 		lblComision.setBounds(10, 147, 93, 25);
 		frame.getContentPane().add(lblComision);
 		
-		txtEmpNum = new JTextField();
-		txtEmpNum.setBounds(103, 59, 86, 20);
-		frame.getContentPane().add(txtEmpNum);
-		txtEmpNum.setColumns(10);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
@@ -159,6 +160,21 @@ public class vistaEmp {
 		btnLimpiar = new JButton("LIMPIAR");
 		btnLimpiar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnLimpiar);
+		
+		
+		NumberFormat format = NumberFormat.getNumberInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0);
+	    formatter.setMaximum(9999);
+	    formatter.setAllowsInvalid(false);
+	    // If you want the value to be committed on each keystroke instead of focus lost
+	    formatter.setCommitsOnValidEdit(true);
+	    txtEmpNum = new JFormattedTextField(formatter);
+		txtEmpNum.setBounds(103, 56, 86, 20);
+		frame.getContentPane().add(txtEmpNum);
+		
+	    
 		
 		frame.setVisible(true);
 	}

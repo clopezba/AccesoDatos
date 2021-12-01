@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -39,7 +40,7 @@ public class Controlador implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		String comando = arg0.getActionCommand();
 		
-		JTextField numEmp = this.vista.txtEmpNum;
+		JFormattedTextField numEmp = this.vista.txtEmpNum;
 		JTextField apellido = this.vista.txtApellido;
 		JTextField oficio =this.vista.txtOficio;
 		JTextField salario = this.vista.txtSalario;
@@ -50,7 +51,6 @@ public class Controlador implements ActionListener{
 		
 		switch(comando) {
 			case "CONSULTAR":
-				
 				if(numEmp.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(this.vista.frame, "No has introducido ningún número"); 
 				}
@@ -73,6 +73,7 @@ public class Controlador implements ActionListener{
 					}
 				}
 				break;
+				
 			case "INSERTAR":
 				String numero = numEmp.getText();
 				String consulta = "from Empleados as emp where emp.empNo = " + numero;
@@ -111,6 +112,7 @@ public class Controlador implements ActionListener{
 								tx.commit();
 								JOptionPane.showMessageDialog(this.vista.frame, "Empleado insertado");
 								rellenarDirector();
+								rellenarDepartamento();
 								limpiarFormulario();
 								break;
 							}
@@ -125,33 +127,39 @@ public class Controlador implements ActionListener{
 						}
 					}
 				}
-			case "ELIMINAR":
-				String empNo = numEmp.getText();
-				boolean director = false;
 				
-				Transaction trans = session.beginTransaction();
-				Query query = session.createQuery("from Empleados");
+			case "ELIMINAR":
+				Short empNo = Short.valueOf(numEmp.getText());
+				boolean director = false;
+					
+				Query query = session.createQuery("from Empleados emp where emp.dir= :direc");
+				query.setShort("direc", empNo);
 				List<Empleados> lista = query.list();
-				Iterator <Empleados> iter = lista.iterator();
-				while(iter.hasNext()) {
-					Empleados emp = (Empleados) iter.next();
-					if(String.valueOf(emp.getDir()) == empNo) {
-						JOptionPane.showMessageDialog(this.vista.frame, "No se ha podido borrar\n Es director de otros empleados");
-						director = true;
+				
+				if (lista.isEmpty() ) {
+					JOptionPane.showMessageDialog(this.vista.frame, "No se ha podido borrar. Tiene empleados a su cargo");
+					director = true;
+				}
+				else {
+					Transaction trans = session.beginTransaction();
+					Empleados empBorrar = (Empleados) session.get(Empleados.class, Short.valueOf(empNo));
+					try {
+						if(director == false) {
+							session.delete(empBorrar);
+							trans.commit();
+							JOptionPane.showMessageDialog(this.vista.frame, "Empleado eliminado");
+						}
+						limpiarFormulario();
+						break;
+					}catch (Exception e) {
+						JOptionPane.showMessageDialog(this.vista.frame, "Ocurrió un error al borrar el empleado");
+						e.printStackTrace();
 					}
 				}
-				Empleados empBorrar = (Empleados) session.get(Empleados.class, Short.valueOf(empNo));
-				try {
-					if(director == false) {
-						session.delete(empBorrar);
-						trans.commit();
-					}
-					limpiarFormulario();
-					break;
-				}catch (Exception e) {
-					JOptionPane.showMessageDialog(this.vista.frame, "Ocurrió un error al borrar el empleado");
-					e.printStackTrace();
-				}
+				
+				
+			case "MODIFICAR":
+				
 				
 			case "LIMPIAR":
 				limpiarFormulario();
@@ -188,7 +196,7 @@ public class Controlador implements ActionListener{
 		}
 	}
 	protected void limpiarFormulario() {
-		JTextField numEmp = this.vista.txtEmpNum;
+		JFormattedTextField numEmp = this.vista.txtEmpNum;
 		JTextField apellido = this.vista.txtApellido;
 		JTextField oficio =this.vista.txtOficio;
 		JTextField salario = this.vista.txtSalario;
