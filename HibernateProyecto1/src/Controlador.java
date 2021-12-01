@@ -51,6 +51,7 @@ public class Controlador implements ActionListener{
 		
 		switch(comando) {
 			case "CONSULTAR":
+				System.out.println(numEmp.getText());
 				if(numEmp.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(this.vista.frame, "No has introducido ningún número"); 
 				}
@@ -67,11 +68,12 @@ public class Controlador implements ActionListener{
 						salario.setText(String.valueOf(emp.getSalario()));
 						comision.setText(String.valueOf(emp.getComision()));
 						fecha.setText(String.valueOf(emp.getFechaAlt()));
-						cmbDep.setSelectedItem(emp.getDepartamentos().getDeptNo() + " / " + emp.getDepartamentos().getDnombre());;
+						cmbDep.setSelectedItem(emp.getDepartamentos().getDeptNo() + " / " + emp.getDepartamentos().getDnombre());
 						Empleados direc = (Empleados) session.get(Empleados.class, Short.valueOf(emp.getDir()));
 						cmbDirec.setSelectedItem(emp.getDir() + " / " + direc.getApellido());
 					}
 				}
+				
 				break;
 				
 			case "INSERTAR":
@@ -112,7 +114,6 @@ public class Controlador implements ActionListener{
 								tx.commit();
 								JOptionPane.showMessageDialog(this.vista.frame, "Empleado insertado");
 								rellenarDirector();
-								rellenarDepartamento();
 								limpiarFormulario();
 								break;
 							}
@@ -129,20 +130,21 @@ public class Controlador implements ActionListener{
 				}
 				
 			case "ELIMINAR":
-				Short empNo = Short.valueOf(numEmp.getText());
+				String empNo = numEmp.getValue().toString();
+				Short num = Short.valueOf(empNo);
 				boolean director = false;
 					
 				Query query = session.createQuery("from Empleados emp where emp.dir= :direc");
-				query.setShort("direc", empNo);
+				query.setShort("direc", num);
 				List<Empleados> lista = query.list();
 				
-				if (lista.isEmpty() ) {
+				if (!lista.isEmpty() ) {
 					JOptionPane.showMessageDialog(this.vista.frame, "No se ha podido borrar. Tiene empleados a su cargo");
 					director = true;
 				}
 				else {
 					Transaction trans = session.beginTransaction();
-					Empleados empBorrar = (Empleados) session.get(Empleados.class, Short.valueOf(empNo));
+					Empleados empBorrar = (Empleados) session.get(Empleados.class, num);
 					try {
 						if(director == false) {
 							session.delete(empBorrar);
@@ -205,7 +207,7 @@ public class Controlador implements ActionListener{
 		JComboBox<String> cmbDep = this.vista.cmbDep;
 		JComboBox<String> cmbDirec = this.vista.cmbDirec;
 		
-		numEmp.setText("");
+		numEmp.setValue(null);
 		apellido.setText("");
 		oficio.setText("");
 		salario.setText("");

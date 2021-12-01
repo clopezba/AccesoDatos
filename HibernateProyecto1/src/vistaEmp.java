@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -15,6 +16,7 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.swing.JFormattedTextField;
 
@@ -162,14 +164,16 @@ public class vistaEmp {
 		panel.add(btnLimpiar);
 		
 		
-		NumberFormat format = NumberFormat.getNumberInstance();
-	    NumberFormatter formatter = new NumberFormatter(format);
+		NumberFormat nf = NumberFormat.getInstance();
+	    nf.setGroupingUsed(false);
+	    nf.setMaximumIntegerDigits(4);
+	    NumberFormatter formatter = new NumberFormatter(nf);
 	    formatter.setValueClass(Integer.class);
-	    formatter.setMinimum(0);
-	    formatter.setMaximum(9999);
 	    formatter.setAllowsInvalid(false);
 	    // If you want the value to be committed on each keystroke instead of focus lost
 	    formatter.setCommitsOnValidEdit(true);
+	    formatter.setOverwriteMode(false);
+	    
 	    txtEmpNum = new JFormattedTextField(formatter);
 		txtEmpNum.setBounds(103, 56, 86, 20);
 		frame.getContentPane().add(txtEmpNum);
@@ -198,3 +202,6 @@ public class vistaEmp {
 		btnLimpiar.setActionCommand("LIMPIAR");
 	}
 }
+
+
+//https://zetcode.com/java/numberformat/ 
