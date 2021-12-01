@@ -31,6 +31,7 @@ public class Controlador implements ActionListener{
 		this.vista = vista;
 		rellenarDepartamento();
 		rellenarDirector();
+		limpiarFormulario();
 	}
 	
 		
@@ -108,6 +109,10 @@ public class Controlador implements ActionListener{
 							session.save(emp);
 							try {
 								tx.commit();
+								JOptionPane.showMessageDialog(this.vista.frame, "Empleado insertado");
+								rellenarDirector();
+								limpiarFormulario();
+								break;
 							}
 							catch (ConstraintViolationException e) {
 								System.out.printf("ERROR SQL: %s%n", e.getSQLException().getMessage());
@@ -119,6 +124,33 @@ public class Controlador implements ActionListener{
 							e.printStackTrace();
 						}
 					}
+				}
+			case "ELIMINAR":
+				String empNo = numEmp.getText();
+				boolean director = false;
+				
+				Transaction trans = session.beginTransaction();
+				Query query = session.createQuery("from Empleados");
+				List<Empleados> lista = query.list();
+				Iterator <Empleados> iter = lista.iterator();
+				while(iter.hasNext()) {
+					Empleados emp = (Empleados) iter.next();
+					if(String.valueOf(emp.getDir()) == empNo) {
+						JOptionPane.showMessageDialog(this.vista.frame, "No se ha podido borrar\n Es director de otros empleados");
+						director = true;
+					}
+				}
+				Empleados empBorrar = (Empleados) session.get(Empleados.class, Short.valueOf(empNo));
+				try {
+					if(director == false) {
+						session.delete(empBorrar);
+						trans.commit();
+					}
+					limpiarFormulario();
+					break;
+				}catch (Exception e) {
+					JOptionPane.showMessageDialog(this.vista.frame, "Ocurrió un error al borrar el empleado");
+					e.printStackTrace();
 				}
 				
 			case "LIMPIAR":
