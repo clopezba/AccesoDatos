@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -16,7 +15,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.exception.DataException;
 
 import primero.*;
 
@@ -27,6 +25,7 @@ public class Controlador implements ActionListener{
 		
 	SessionFactory sesion = SessionFactoryUtil.getSessionFactory();
 	Session session = sesion.openSession();
+	
 		
 	Controlador(vistaEmp vista){
 		this.vista = vista;
@@ -51,6 +50,7 @@ public class Controlador implements ActionListener{
 		
 		switch(comando) {
 			case "CONSULTAR":
+				
 				if(numEmp.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(this.vista.frame, "No has introducido ningún número"); 
 				}
@@ -72,10 +72,10 @@ public class Controlador implements ActionListener{
 						cmbDirec.setSelectedItem(emp.getDir() + " / " + direc.getApellido());
 					}
 				}
-				
 				break;
 				
 			case "INSERTAR":
+				
 				String numero = numEmp.getText();
 				Query consulta = session.createQuery("from Empleados as emp where emp.empNo = :num");
 				consulta.setShort("num", Short.valueOf(numero));
@@ -129,6 +129,7 @@ public class Controlador implements ActionListener{
 				}
 				
 			case "ELIMINAR":
+				
 				Short empNo = Short.valueOf(numEmp.getText());
 				
 				boolean director = false;
@@ -149,8 +150,10 @@ public class Controlador implements ActionListener{
 							session.delete(empBorrar);
 							trans.commit();
 							JOptionPane.showMessageDialog(this.vista.frame, "Empleado eliminado");
+							limpiarFormulario();
+							rellenarDirector();
 						}
-						limpiarFormulario();
+						
 						break;
 					}catch (Exception e) {
 						JOptionPane.showMessageDialog(this.vista.frame, "Ocurrió un error al borrar el empleado");
@@ -159,6 +162,8 @@ public class Controlador implements ActionListener{
 				}
 				
 			case "MODIFICAR":
+				
+				Empleados empl = (Empleados) session.get(Empleados.class, Short.valueOf(numEmp.getText()));
 				if(numEmp.getText().isEmpty() || apellido.getText().isEmpty() || oficio.getText().isEmpty() 
 						|| salario.getText().isEmpty() || fecha.getText().isEmpty() 
 						|| cmbDep.getSelectedIndex()==0 || cmbDirec.getSelectedIndex()==0) {
@@ -169,7 +174,6 @@ public class Controlador implements ActionListener{
 						comision.setText("0");
 					}
 					Transaction tx = session.beginTransaction();
-					Empleados empl = new Empleados();
 					empl.setApellido(apellido.getText());
 					empl.setOficio(oficio.getText());
 					empl.setSalario(Float.valueOf(salario.getText()));
@@ -208,11 +212,11 @@ public class Controlador implements ActionListener{
 				session.close();
 				sesion.close();
 				System.exit(0);
-			
 		}
 		
 	}
 	protected void rellenarDepartamento() {
+		
 		JComboBox<String> cmbDep = this.vista.cmbDep;
 		Query q = session.createQuery("from Departamentos");
 		List<Departamentos> lista = q.list();
@@ -225,7 +229,12 @@ public class Controlador implements ActionListener{
 	}
 	
 	protected void rellenarDirector() {
+		
 		JComboBox<String> cmbDirec = this.vista.cmbDirec;
+		for (int i = 1; i < cmbDirec.getComponentCount(); i++) {
+			cmbDirec.remove(i);
+		}
+		
 		Query q = session.createQuery("from Empleados");
 		List<Empleados> lista = q.list();
 		Iterator <Empleados> iter = lista.iterator();
