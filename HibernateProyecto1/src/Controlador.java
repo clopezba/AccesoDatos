@@ -40,7 +40,7 @@ public class Controlador implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		String comando = arg0.getActionCommand();
 		
-		JFormattedTextField numEmp = this.vista.txtEmpNum;
+		JTextField numEmp = this.vista.txtEmpNum;
 		JTextField apellido = this.vista.txtApellido;
 		JTextField oficio =this.vista.txtOficio;
 		JTextField salario = this.vista.txtSalario;
@@ -51,7 +51,6 @@ public class Controlador implements ActionListener{
 		
 		switch(comando) {
 			case "CONSULTAR":
-				System.out.println(numEmp.getText());
 				if(numEmp.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(this.vista.frame, "No has introducido ningún número"); 
 				}
@@ -78,9 +77,11 @@ public class Controlador implements ActionListener{
 				
 			case "INSERTAR":
 				String numero = numEmp.getText();
-				String consulta = "from Empleados as emp where emp.empNo = " + numero;
-				Query q = session.createQuery(consulta);
-				if (q.uniqueResult() != null) {
+				Query consulta = session.createQuery("from Empleados as emp where emp.empNo = :num");
+				consulta.setShort("num", Short.valueOf(numero));
+			
+				
+				if (consulta.uniqueResult() != null) {
 					JOptionPane.showMessageDialog(this.vista.frame, "Ya existe un empleado con ese número");
 				}
 				else {
@@ -120,8 +121,6 @@ public class Controlador implements ActionListener{
 							catch (ConstraintViolationException e) {
 								System.out.printf("ERROR SQL: %s%n", e.getSQLException().getMessage());
 							}
-						}catch (DataException e) {
-							JOptionPane.showMessageDialog(this.vista.frame, "No se ha podido insertar\n Valor introducido demasiado largo");
 						}catch (Exception e) {
 							System.out.println("ERROR NO CONTROLADO....");
 							e.printStackTrace();
@@ -130,12 +129,12 @@ public class Controlador implements ActionListener{
 				}
 				
 			case "ELIMINAR":
-				String empNo = numEmp.getValue().toString();
-				Short num = Short.valueOf(empNo);
+				Short empNo = Short.valueOf(numEmp.getText());
+				
 				boolean director = false;
 					
 				Query query = session.createQuery("from Empleados emp where emp.dir= :direc");
-				query.setShort("direc", num);
+				query.setShort("direc", empNo);
 				List<Empleados> lista = query.list();
 				
 				if (!lista.isEmpty() ) {
@@ -144,7 +143,7 @@ public class Controlador implements ActionListener{
 				}
 				else {
 					Transaction trans = session.beginTransaction();
-					Empleados empBorrar = (Empleados) session.get(Empleados.class, num);
+					Empleados empBorrar = (Empleados) session.get(Empleados.class, empNo);
 					try {
 						if(director == false) {
 							session.delete(empBorrar);
@@ -159,13 +158,52 @@ public class Controlador implements ActionListener{
 					}
 				}
 				
-				
 			case "MODIFICAR":
-				
-				
+				if(numEmp.getText().isEmpty() || apellido.getText().isEmpty() || oficio.getText().isEmpty() 
+						|| salario.getText().isEmpty() || fecha.getText().isEmpty() 
+						|| cmbDep.getSelectedIndex()==0 || cmbDirec.getSelectedIndex()==0) {
+					JOptionPane.showMessageDialog(this.vista.frame, "Debes rellenar todos los campos");
+				}
+				else {
+					if(comision.getText().isEmpty()) {
+						comision.setText("0");
+					}
+					Transaction tx = session.beginTransaction();
+					Empleados empl = new Empleados();
+					empl.setApellido(apellido.getText());
+					empl.setOficio(oficio.getText());
+					empl.setSalario(Float.valueOf(salario.getText()));
+					empl.setComision(Float.valueOf(comision.getText()));
+					String dir = cmbDirec.getSelectedItem().toString().substring(0, 4);
+					empl.setDir(Short.valueOf(dir));
+					String dep = cmbDep.getSelectedItem().toString().substring(0, 2);
+					Departamentos d = new Departamentos();
+					d.setDeptNo(Byte.valueOf(dep));
+					empl.setDepartamentos(d);
+					java.sql.Date fech = Date.valueOf(fec);
+					empl.setFechaAlt(fech);
+					try{
+						session.update(empl);
+						try {
+							tx.commit();
+							JOptionPane.showMessageDialog(this.vista.frame, "Empleado modificado");
+							rellenarDirector();
+							limpiarFormulario();
+							break;
+						}
+						catch (ConstraintViolationException e) {
+							System.out.printf("ERROR SQL: %s%n", e.getSQLException().getMessage());
+						}
+					}catch (Exception e) {
+						System.out.println("ERROR NO CONTROLADO....");
+						e.printStackTrace();
+					}
+				}
+							
 			case "LIMPIAR":
 				limpiarFormulario();
 				break;
+				
 			case "SALIR":
 				session.close();
 				sesion.close();
@@ -198,7 +236,7 @@ public class Controlador implements ActionListener{
 		}
 	}
 	protected void limpiarFormulario() {
-		JFormattedTextField numEmp = this.vista.txtEmpNum;
+		JTextField numEmp = this.vista.txtEmpNum;
 		JTextField apellido = this.vista.txtApellido;
 		JTextField oficio =this.vista.txtOficio;
 		JTextField salario = this.vista.txtSalario;
@@ -207,7 +245,7 @@ public class Controlador implements ActionListener{
 		JComboBox<String> cmbDep = this.vista.cmbDep;
 		JComboBox<String> cmbDirec = this.vista.cmbDirec;
 		
-		numEmp.setValue(null);
+		numEmp.setText("");
 		apellido.setText("");
 		oficio.setText("");
 		salario.setText("");

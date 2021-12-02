@@ -18,7 +18,7 @@ import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import javax.swing.JFormattedTextField;
+
 
 public class vistaEmp {
 
@@ -28,9 +28,10 @@ public class vistaEmp {
 	protected JTextField txtSalario;
 	protected JTextField txtComision;
 	protected JTextField txtFecha;
-	protected JFormattedTextField txtEmpNum;
 	protected JButton btnConsultar,btnInsertar, btnModificar, btnEliminar, btnSalir, btnLimpiar;
 	protected JComboBox<String> cmbDep, cmbDirec;
+	protected JTextField txtEmpNum;
+
 	
 
 	/**
@@ -95,11 +96,27 @@ public class vistaEmp {
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(103, 82, 152, 20);
 		frame.getContentPane().add(txtApellido);
+		txtApellido.addKeyListener(new KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent e) {
+				char c = e.getKeyChar();
+				if(! Character.isAlphabetic(c) || txtApellido.getText().length()>=10)
+				e.consume();
+				}
+		});
+		txtApellido.setTransferHandler(null);
 		
 		txtOficio = new JTextField();
 		txtOficio.setColumns(10);
 		txtOficio.setBounds(103, 106, 152, 20);
 		frame.getContentPane().add(txtOficio);
+		txtOficio.addKeyListener(new KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent e) {
+				char c = e.getKeyChar();
+				if(! Character.isAlphabetic(c) || txtOficio.getText().length()>=10)
+				e.consume();
+				}
+		});
+		txtOficio.setTransferHandler(null);
 		
 		txtSalario = new JTextField();
 		txtSalario.setColumns(10);
@@ -163,8 +180,21 @@ public class vistaEmp {
 		btnLimpiar.setPreferredSize(new Dimension(100, 20));
 		panel.add(btnLimpiar);
 		
+		txtEmpNum = new JTextField();
+		txtEmpNum.setColumns(10);
+		txtEmpNum.setBounds(103, 56, 86, 20);
+		frame.getContentPane().add(txtEmpNum);
+		txtEmpNum.addKeyListener(new KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent e) {
+				char c = e.getKeyChar();
+				if(! Character.isDigit(c) || txtEmpNum.getText().length()>=4)
+				e.consume();
+				}
+		});
+		txtEmpNum.setTransferHandler(null);
 		
-		NumberFormat nf = NumberFormat.getInstance();
+		
+		/*NumberFormat nf = NumberFormat.getInstance();
 	    nf.setGroupingUsed(false);
 	    nf.setMaximumIntegerDigits(4);
 	    NumberFormatter formatter = new NumberFormatter(nf);
@@ -174,12 +204,8 @@ public class vistaEmp {
 	    formatter.setCommitsOnValidEdit(true);
 	    formatter.setOverwriteMode(false);
 	    
-	    txtEmpNum = new JFormattedTextField(formatter);
-		txtEmpNum.setBounds(103, 56, 86, 20);
-		frame.getContentPane().add(txtEmpNum);
-		
-	    
-		
+	    txtEmpNum = new JFormattedTextField(formatter);*/
+				
 		frame.setVisible(true);
 	}
 	public void conectaControlador(Controlador con) {
