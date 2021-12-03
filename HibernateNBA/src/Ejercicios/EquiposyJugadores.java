@@ -18,19 +18,29 @@ public class EquiposyJugadores {
 		SessionFactory sesion = SessionFactoryUtil.getSessionFactory();
 		Session session = sesion.openSession();
 		
-		String hql = "select j.nombre, j.codigo, avg(e.puntosPorPartido) from Jugadores as j left join "
-				+ "j.estadisticases as e";
-		Query cons = session.createQuery(hql);
-		Iterator it = cons.iterate();
-		
+		Equipos eq = new Equipos();
+		Query qu = session.createQuery("from Equipos");
+		List<Equipos> lisEq = qu.list();
+		Iterator<Equipos> it = lisEq.iterator();
 		while(it.hasNext()) {
-			Object[] par = (Object[]) it.next();
-			Jugadores jug = (Jugadores) par[0];
-			Estadisticas est = (Estadisticas) par[1];
-			
-			System.out.println("Jugador: "+ jug.getCodigo() + ", "+ jug.getNombre());
-			System.out.println("Puntos: " + est.getPuntosPorPartido());
+			eq = it.next();
+			System.out.println("Equipo: " + eq.getNombre());
+			String hql = "select j.nombre, j.codigo, avg(e.puntosPorPartido) from Jugadores as j join "
+					+ "j.estadisticases as e group by j.nombre" ;
+			Query cons = session.createQuery(hql);
+			List<Object[]> lista = cons.list();
+			System.out.println(lista.size());
+			for (int i = 0; i < lista.size(); i++) {
+				Object[] par = (Object[]) lista.get(i);
+				
+				
+				System.out.println("Jugador: "+ par[1] + ", "+ par[0]);
+				System.out.println("Puntos: " + par[2]);
+
+			}
 		}
+		
+		
 		session.close();
 		sesion.close();
 	}
