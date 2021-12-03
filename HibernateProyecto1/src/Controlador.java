@@ -243,6 +243,7 @@ public class Controlador implements ActionListener{
 			String txtCombo = String.valueOf(emp.getEmpNo()) + " / " + emp.getApellido();
 			cmbDirec.addItem(txtCombo);
 		}
+		
 	}
 	protected void limpiarFormulario() {
 		JTextField numEmp = this.vista.txtEmpNum;
