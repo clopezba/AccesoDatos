@@ -21,7 +21,7 @@ public class EquiposyJugadores {
 		List<Equipos> lisEq = qu.list();
 		Iterator<Equipos> it = lisEq.iterator();
 		
-		System.out.println("Nñumero de Equipos: " + lisEq.size());
+		System.out.println("Número de Equipos: " + lisEq.size());
 		System.out.println("==========================================");
 		
 		while (it.hasNext()) {
