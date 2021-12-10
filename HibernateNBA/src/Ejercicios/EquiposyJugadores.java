@@ -20,8 +20,10 @@ public class EquiposyJugadores {
 		Query qu = session.createQuery("from Equipos");
 		List<Equipos> lisEq = qu.list();
 		Iterator<Equipos> it = lisEq.iterator();
+		
 		System.out.println("Nñumero de Equipos: " + lisEq.size());
 		System.out.println("==========================================");
+		
 		while (it.hasNext()) {
 			eq = it.next();
 			System.out.println("Equipo: " + eq.getNombre());
