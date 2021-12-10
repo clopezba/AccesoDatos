@@ -1,0 +1,28 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-09 10:11:19 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\TutorialObjectDB\db\p2.odb' is opened by 7888@B02-PC09
+
+[2021-12-09 10:11:19 #2 store] 
+Configuration path: ?
+
+[2021-12-09 10:11:19 #3 type] 
+Type tutorial.Point is not enhanced.
+
+[2021-12-09 10:11:19 #4 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\TutorialObjectDB\db\p2.odb' is closed by 7888@B02-PC09
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-09 10:12:33 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\TutorialObjectDB\db\p2.odb' is opened by 10100@B02-PC09
+
+[2021-12-09 10:12:33 #2 store] 
+Configuration path: ?
+
+[2021-12-09 10:12:33 #3 type] 
+Type tutorial.Point is not enhanced.
+
+[2021-12-09 10:12:33 #4 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\TutorialObjectDB\db\p2.odb' is closed by 10100@B02-PC09
+
