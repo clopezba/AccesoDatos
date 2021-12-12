@@ -100,4 +100,7 @@ public class Empleados implements java.io.Serializable {
 		this.comision = comision;
 	}
 
+	
+	
+
 }
