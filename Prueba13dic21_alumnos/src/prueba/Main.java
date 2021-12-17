@@ -9,9 +9,9 @@ public class Main {
 
 		AccesoBdatos abd = new AccesoBdatos();
 		abd.conectar();
-	//	System.out.println(abd.pregunta1(null, "123456")); // false
-	//	System.out.println(abd.pregunta1("", "123456")); // false
-	//	System.out.println(abd.pregunta1("SUCURSAL3", "123456"));// true y la inserta
+//		System.out.println(abd.pregunta1(null, "123456")); // false
+//		System.out.println(abd.pregunta1("", "123456")); // false
+//		System.out.println(abd.pregunta1("SUCURSAL3", "123456"));// true y la inserta
 	//-------------------------------------------------------------------------------
 	//	System.out.println(abd.pregunta2(1, "858576"));// true y la modifica
 	//-------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ public class Main {
 	//	abd.pregunta4("3DSNG", 3);
 		//Total unidades del producto 3DSNG en la tienda 3 --> 0
 	//----------------------------------------------------------------------------------
-	//	abd.pregunta5();
+		abd.pregunta5();
 		/*
 		 Productos distintos: 25
 
