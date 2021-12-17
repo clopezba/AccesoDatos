@@ -1,0 +1,59 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-16 10:10:01 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\AccesoDatos\TutorialObjectDB\db\empleados.odb' is opened by 10312@B02-PC09
+
+[2021-12-16 10:10:01 #2 store] 
+Configuration path: ?
+
+[2021-12-16 10:10:01 #3 type] 
+Type ejemplo1.DepartamentoEntity is not enhanced.
+
+[2021-12-16 10:10:01 #4 type] 
+Type ejemplo1.EmpleadoEntity is not enhanced.
+
+[2021-12-16 10:10:01 #5 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\AccesoDatos\TutorialObjectDB\db\empleados.odb' is closed by 10312@B02-PC09
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-16 10:10:16 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\AccesoDatos\TutorialObjectDB\db\empleados.odb' is opened by 18512@B02-PC09
+
+[2021-12-16 10:10:16 #2 store] 
+Configuration path: ?
+
+[2021-12-16 10:10:16 #3 type] 
+Type ejemplo1.DepartamentoEntity is not enhanced.
+
+[2021-12-16 10:10:16 #4 type] 
+Type ejemplo1.EmpleadoEntity is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-16 10:12:20 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\AccesoDatos\TutorialObjectDB\db\empleados.odb' is opened by 21784@B02-PC09
+
+[2021-12-16 10:12:20 #2 store] 
+Configuration path: ?
+
+[2021-12-16 10:12:20 #3 type] 
+Type ejemplo1.DepartamentoEntity is not enhanced.
+
+[2021-12-16 10:12:20 #4 type] 
+Type ejemplo1.EmpleadoEntity is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-12-16 10:13:17 #1 store] 
+Database 'C:\Users\DAM2Alu10\Documents\Acceso a datos\Workspace\AccesoDatos\TutorialObjectDB\db\empleados.odb' is opened by 14776@B02-PC09
+
+[2021-12-16 10:13:17 #2 store] 
+Configuration path: ?
+
+[2021-12-16 10:13:17 #3 type] 
+Type ejemplo1.DepartamentoEntity is not enhanced.
+
+[2021-12-16 10:13:17 #4 type] 
+Type ejemplo1.EmpleadoEntity is not enhanced.
+
