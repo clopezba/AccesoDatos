@@ -111,7 +111,7 @@ public class AccesoBdatos {
 	
 	public void demoJPQL() {
 		
-	/*	Query q1 = em.createQuery("SELECT COUNT(d) FROM DepartamentoEntity d");
+		Query q1 = em.createQuery("SELECT COUNT(d) FROM DepartamentoEntity d");
         System.out.println("Total Departamentos: " + q1.getSingleResult());
         //
         TypedQuery<Long> tq1 = em.createQuery(
@@ -124,7 +124,8 @@ public class AccesoBdatos {
 	        for (DepartamentoEntity r2 : l2) {
 	            System.out.println("Nombre :  " + r2.getNombre()+ ", Localidad: "+ r2.getLocalidad());
 	        }
-	    //
+	    
+	        //
         TypedQuery<Object[]>tq3 =
 	            em.createQuery("SELECT d.nombre, d.localidad FROM DepartamentoEntity  d", Object[].class);
 	        List<Object[]> l3 = tq3.getResultList();
@@ -132,6 +133,7 @@ public class AccesoBdatos {
 	            System.out.println(
 	            "Nombre :  " + r3[0] + ", Localidad: " + r3[1]);
 	    }    
+	    
 	    //
 	      TypedQuery<Object[]>tq4 =
 		            em.createQuery("SELECT d.nombre, d.localidad FROM DepartamentoEntity d"
@@ -158,6 +160,7 @@ public class AccesoBdatos {
 	    	System.out.println(obj[0] + " - " + obj[1]);
 		}
 		
+		
 		//Departamento I+D cuyo oficio es Empleado
 		TypedQuery<Object[]> con3 = em.createQuery("SELECT e.nombre, e.oficio, e.departamento.nombre "
 				+ "FROM EmpleadoEntity e where e.departamento.nombre = 'I+D' AND e.oficio = 'Empleado'", Object[].class);
@@ -171,7 +174,7 @@ public class AccesoBdatos {
 		imprimirResultado(lista4);
 		
 		//Empleados por orden alfabético de departamento
-		TypedQuery<Object[]> con5 = em.createQuery("SELECT e.departamento.nombre, e.nombre "
+		TypedQuery<Object[]> con5 = em.createQuery("SELECT e.departamento.dptoId, e.nombre "
 				+ "FROM EmpleadoEntity e ORDER BY e.departamento.nombre", Object[].class);
 		List<Object[]> lista5 = con5.getResultList();
 		imprimirResultado(lista5);
@@ -199,12 +202,123 @@ public class AccesoBdatos {
 		TypedQuery<Object[]> con9 = em.createQuery("SELECT e.departamento.nombre, count(e.nombre) FROM EmpleadoEntity e GROUP BY e.departamento.nombre HAVING count(e.nombre) > 0", Object[].class);
 		List<Object[]> lista9 = con9.getResultList();
 		imprimirResultado(lista9);
-		*/
+		
 		//Nombre y total de empleados de TODOS los departamentos
+		TypedQuery<DepartamentoEntity> con10 = em.createQuery("SELECT d FROM DepartamentoEntity d", DepartamentoEntity.class);
+		List<DepartamentoEntity> lista10 = con10.getResultList();
+		for (DepartamentoEntity dep : lista10) {
+			System.out.println(dep.getNombre() + " - " + dep.getEmpleados().size());
+		}
 		
+		//Ordenar desc por departamento y asc por salario
+		TypedQuery<EmpleadoEntity> con11 = em.createQuery("SELECT e FROM EmpleadoEntity e ORDER BY e.departamento.dptoId DESC, e.salario ASC", EmpleadoEntity.class);
+		List<EmpleadoEntity> lista11 = con11.getResultList();
+		for (EmpleadoEntity emp : lista11) {
+			System.out.println(emp.getDepartamento().getDptoId() + " - " + emp.getNombre() + " - " + emp.getSalario());
+		}
+ 		
+		//Empleados sin jefe
+		TypedQuery<Object[]> con12 = em.createQuery("SELECT e.empnoId, e.nombre "
+				+ "FROM EmpleadoEntity e WHERE e.dirId is null", Object[].class);
+		List<Object[]> lista12 = con12.getResultList();
+		imprimirResultado(lista12);
 		
+		//Departamento al que pertenece el empleado 1039
+		TypedQuery<Object[]> con13 = em.createQuery("SELECT d.dptoId, d.nombre FROM DepartamentoEntity d WHERE d.empleados.empnoId = 1039", Object[].class);
+		List<Object[]> lista13 = con13.getResultList();
+		imprimirResultado(lista13);
 		
 	}// de demoJPQL
+	
+	public int incrementarSalario(int cantidad) {
+		int resultado = 0;
+		try {
+			em.getTransaction().begin();
+			Query q = em.createQuery("UPDATE EmpleadoEntity SET salario = salario + :num");
+			q.setParameter("num", cantidad);
+			resultado = q.executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Error en la actualización " + e.getMessage());
+			em.getTransaction().rollback();
+		}
+		return resultado;
+	}
+	
+	public int incrementarSalarioOficio (String oficio, int cantidad) {
+		int resultado = 0;
+		try {
+			em.getTransaction().begin();
+			Query q = em.createQuery("UPDATE EmpleadoEntity e SET e.salario = e.salario + :num "
+					+ "WHERE e.oficio = :oficio");
+			q.setParameter("num", cantidad);
+			q.setParameter("oficio", oficio);
+			resultado = q.executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Error en la actualización " + e.getMessage());
+			em.getTransaction().rollback();
+		}
+		return resultado;
+	}
+	
+	public int incrementarSalarioDepatamento (int numDepartamento, int cantidad) {
+		int resultado = 0;
+		try {
+			em.getTransaction().begin();
+			Query q = em.createQuery("UPDATE EmpleadoEntity e SET e.salario = e.salario + :num WHERE e.departamento.getDptoId() = :dep");
+			q.setParameter("num", cantidad);
+			q.setParameter("dep", numDepartamento);
+			resultado = q.executeUpdate();
+			em.getTransaction().commit();
+			return resultado;
+		} catch (Exception e) {
+			System.out.println("Error en la actualización ");
+			e.printStackTrace();
+			em.getTransaction().rollback();
+			return resultado;
+		}
+		
+	}
+	
+	public int borrarEmpleado (int numEmpleado) {
+		int resultado = 0;
+		try {
+			em.getTransaction().begin();
+			Query q = em.createQuery("DELETE FROM EmpleadoEntity WHERE empnoId = :num");
+			q.setParameter("num", numEmpleado);
+			resultado = q.executeUpdate();
+			
+			Query qu = em.createQuery("UPDATE EmpleadoEntity e SET e.dirId = null WHERE e.empnoId = :num");
+			qu.setParameter("num", numEmpleado);
+			qu.executeUpdate();
+			em.getTransaction().commit();
+			return resultado;
+		
+		} catch (Exception e) {
+			System.out.println("Error en el borrado");
+			e.printStackTrace();
+			em.getTransaction().rollback();
+			return resultado;
+		}
+	}
+	
+	public int borrarDepartamentoNum(int numDepartamento) {
+		int resultado = 0;
+		try {
+			em.getTransaction().begin();
+			Query q = em.createQuery("DELETE FROM DepartamentoEntity d WHERE d.dptoId = :num");
+			q.setParameter("num", numDepartamento);
+			resultado = q.executeUpdate();
+			em.getTransaction().commit();
+			return resultado;
+		}catch (Exception e) {
+			System.out.println("Error en el borrado");
+			e.printStackTrace();
+			em.getTransaction().rollback();
+			return resultado;
+		}
+	}
 //--------------------------------------------------------------------------------------------------------------
 	
 	

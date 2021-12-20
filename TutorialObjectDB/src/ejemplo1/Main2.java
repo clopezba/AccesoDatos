@@ -33,6 +33,16 @@ public class Main2 {
 	
 		abd.demoJPQL();
 		
+//		System.out.println(abd.incrementarSalario(500));
+		
+//		System.out.println(abd.incrementarSalarioOficio("Empleado", 100));
+		
+//		System.out.println(abd.incrementarSalarioDepatamento(20, 200));
+		
+//		System.out.println(abd.borrarEmpleado(2066));
+		
+//		System.out.println(abd.borrarDepartamentoNum(30));
+		
 		abd.desconectar();
 	
 
