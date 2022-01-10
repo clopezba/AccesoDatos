@@ -262,7 +262,7 @@ public class AccesoBdatos {
 		return resultado;
 	}
 	
-	public int incrementarSalarioDepatamento (int numDepartamento, int cantidad) {
+	public int incrementarSalarioDepartamento (int numDepartamento, int cantidad) {
 		int resultado = 0;
 		try {
 			em.getTransaction().begin();

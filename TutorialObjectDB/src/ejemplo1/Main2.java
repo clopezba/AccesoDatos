@@ -37,7 +37,7 @@ public class Main2 {
 		
 //		System.out.println(abd.incrementarSalarioOficio("Empleado", 100));
 		
-//		System.out.println(abd.incrementarSalarioDepatamento(20, 200));
+//		System.out.println(abd.incrementarSalarioDepartamento(20, 200));
 		
 //		System.out.println(abd.borrarEmpleado(2066));
 		
