@@ -31,9 +31,9 @@ public class Main2 {
 		
 //		abd.imprimirDepartamento(10);
 	
-		abd.demoJPQL();
+//		abd.demoJPQL();
 		
-//		System.out.println(abd.incrementarSalario(500));
+//		System.out.println(abd.incrementarSalario(-500));
 		
 //		System.out.println(abd.incrementarSalarioOficio("Empleado", 100));
 		
@@ -41,7 +41,7 @@ public class Main2 {
 		
 //		System.out.println(abd.borrarEmpleado(2066));
 		
-//		System.out.println(abd.borrarDepartamentoNum(30));
+		System.out.println(abd.borrarDepartamentoNum(30));
 		
 		abd.desconectar();
 	
