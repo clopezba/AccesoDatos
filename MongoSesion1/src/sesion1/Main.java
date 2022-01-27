@@ -1,14 +1,15 @@
 package sesion1;
 
 import java.util.Iterator;
+import java.util.TreeSet;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Projections;
 
 public class Main {
 	static MongoCollection<Document> coleccion;
@@ -32,9 +33,6 @@ public class Main {
 		//System.out.println(insertaCiudad(cuenca));
 		//listarCiudades();
 		//listarCiudadesPais("ES");
-		
-		
-		//FALTA AGRUPAR
 		listarPaises(); 
 		
 		//Cerrar conexión
@@ -74,20 +72,30 @@ public class Main {
 	private static void listarCiudadesPais(String pais) {
 		FindIterable<Document> buscar = coleccion.find(new Document("country",pais))
 				.sort(new Document("name", 1));
-		Iterator<Document> it = buscar.iterator();
-		while(it.hasNext()) {
-			System.out.println(it.next().getString("name"));
+		
+		for (Document document : buscar) {
+			System.out.println(document.getString("name"));
 		}
+		
+//		Iterator<Document> it = buscar.iterator();
+//		while(it.hasNext()) {
+//			System.out.println(it.next().getString("name"));
+//		}
 	}
 	
-	
-	//FALTA AGRUPAR!!
 	private static void listarPaises() {
-		FindIterable<Document> buscar = coleccion.find().sort(new Document("country", 1));
+		TreeSet<String> lista = new TreeSet<String>(); //Elimina repetidos y sale ordenada
+		FindIterable<Document> buscar = coleccion.find()
+				.projection(Projections.exclude("_id", "name", "timezone", "location", "tags", "poblacion"))
+				.sort(new Document("country", 1)); //No sería necesario ordenarlo porque ya lo hace el TreeSet
 	
+		
 		Iterator<Document> it = buscar.iterator();
 		while(it.hasNext()) {
-			System.out.println(it.next().getString("country"));
+			lista.add(it.next().getString("country"));
+		}
+		for (String pais : lista) {
+			System.out.println(pais);
 		}
 	}
 }
