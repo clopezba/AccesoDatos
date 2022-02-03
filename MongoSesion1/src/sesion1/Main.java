@@ -1,6 +1,8 @@
 package sesion1;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TreeSet;
 
 import org.bson.Document;
@@ -8,6 +10,7 @@ import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Projections;
 
@@ -33,7 +36,8 @@ public class Main {
 		//System.out.println(insertaCiudad(cuenca));
 		//listarCiudades();
 		//listarCiudadesPais("ES");
-		listarPaises(); 
+		//listarPaises();
+		agregacion();
 		
 		//Cerrar conexión
 		mongo.close();
@@ -96,6 +100,28 @@ public class Main {
 		}
 		for (String pais : lista) {
 			System.out.println(pais);
+		}
+	}
+	
+	private static void agregacion() {
+		Document match = new Document("$match", new Document("country", "ES"));
+		Document project = new Document("$project", 
+				new Document("_id", 0)
+					.append("nombre", "$name")
+					.append("poblacion", "$population"));
+		Document sort = new Document("$sort", new Document("poblacion", -1));
+		Document limit = new Document("$limit", 3);
+		
+		List<Document> listaAgregacion = new ArrayList<Document>();
+		listaAgregacion.add(match);
+		listaAgregacion.add(project);
+		listaAgregacion.add(sort);
+		listaAgregacion.add(limit);
+		
+		MongoCursor<Document> cursor = coleccion.aggregate(listaAgregacion).iterator();
+		
+		while(cursor.hasNext()) {
+			System.out.println(cursor.next());
 		}
 	}
 }
