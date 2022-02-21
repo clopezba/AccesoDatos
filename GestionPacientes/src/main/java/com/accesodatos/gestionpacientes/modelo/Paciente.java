@@ -101,11 +101,11 @@ public class Paciente {
 		this.direccion = direccion;
 	}
 
-	public String getPoblación() {
+	public String getPoblacion() {
 		return poblacion;
 	}
 
-	public void setPoblación(String poblacion) {
+	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
 	}
 
