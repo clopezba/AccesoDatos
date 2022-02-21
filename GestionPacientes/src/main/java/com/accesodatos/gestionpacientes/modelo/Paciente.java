@@ -22,7 +22,7 @@ public class Paciente {
 	private long telefono;
 	private String email;
 	private String direccion;
-	private String población;
+	private String poblacion;
 	private String ciudad;
 	@CreatedDate
 	@Temporal(TemporalType.DATE)
@@ -41,14 +41,14 @@ public class Paciente {
 	}
 
 	public Paciente(String nombre, String apellidos, int edad, long telefono, String email, String direccion,
-			String población, String ciudad, String terapeuta) {
+			String poblacion, String ciudad, String terapeuta) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.edad = edad;
 		this.telefono = telefono;
 		this.email = email;
 		this.direccion = direccion;
-		this.población = población;
+		this.poblacion = poblacion;
 		this.ciudad = ciudad;
 		this.terapeuta = terapeuta;
 	}
@@ -102,11 +102,11 @@ public class Paciente {
 	}
 
 	public String getPoblación() {
-		return población;
+		return poblacion;
 	}
 
-	public void setPoblación(String población) {
-		this.población = población;
+	public void setPoblación(String poblacion) {
+		this.poblacion = poblacion;
 	}
 
 	public String getCiudad() {
@@ -137,7 +137,7 @@ public class Paciente {
 	public String toString() {
 		return "Paciente [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", edad=" + edad
 				+ ", telefono=" + telefono + ", email=" + email + ", direccion=" + direccion + ", población="
-				+ población + ", ciudad=" + ciudad + ", fecha_alta=" + fecha_alta + ", terapeuta=" + terapeuta + "]";
+				+ poblacion + ", ciudad=" + ciudad + ", fecha_alta=" + fecha_alta + ", terapeuta=" + terapeuta + "]";
 	}
 	
 	
