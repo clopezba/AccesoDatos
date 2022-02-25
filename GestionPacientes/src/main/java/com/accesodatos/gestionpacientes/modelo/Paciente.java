@@ -5,10 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 public class Paciente {
@@ -24,9 +20,7 @@ public class Paciente {
 	private String direccion;
 	private String poblacion;
 	private String ciudad;
-	@CreatedDate
-	@Temporal(TemporalType.DATE)
-	private Date fecha_alta;
+	private String fecha_alta;
 	private String terapeuta;
 	
 		
@@ -41,7 +35,7 @@ public class Paciente {
 	}
 
 	public Paciente(String nombre, String apellidos, int edad, long telefono, String email, String direccion,
-			String poblacion, String ciudad, String terapeuta) {
+			String poblacion, String ciudad, String fecha_alta, String terapeuta) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.edad = edad;
@@ -50,6 +44,7 @@ public class Paciente {
 		this.direccion = direccion;
 		this.poblacion = poblacion;
 		this.ciudad = ciudad;
+		this.fecha_alta = fecha_alta;
 		this.terapeuta = terapeuta;
 	}
 
@@ -116,6 +111,15 @@ public class Paciente {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
+	
+
+	public String getFecha_alta() {
+		return fecha_alta;
+	}
+
+	public void setFecha_alta(String fecha_alta) {
+		this.fecha_alta = fecha_alta;
+	}
 
 	public String getTerapeuta() {
 		return terapeuta;
@@ -129,9 +133,6 @@ public class Paciente {
 		return id;
 	}
 
-	public Date getFecha_alta() {
-		return fecha_alta;
-	}
 
 	@Override
 	public String toString() {

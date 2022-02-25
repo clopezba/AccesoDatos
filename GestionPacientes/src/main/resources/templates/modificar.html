@@ -86,12 +86,20 @@
 						</div> <span class="nav-link-text ms-1">Listado</span>
 				</a></li>
 				<li class="nav-item"><a
-					class="nav-link text-white active bg-gradient-primary"
+					class="nav-link text-white"
 					href="crear.html">
 						<div
 							class="text-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="material-icons opacity-10">person_add</i>
 						</div> <span class="nav-link-text ms-1">Nuevo paciente</span>
+				</a></li>
+				<li class="nav-item"><a
+					class="nav-link text-white active bg-gradient-primary"
+					href="crear.html">
+						<div
+							class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="material-icons opacity-10">edit_note</i>
+						</div> <span class="nav-link-text ms-1">Modificar paciente</span>
 				</a></li>
 			</ul>
 		</div>
@@ -110,7 +118,7 @@
 						<li class="breadcrumb-item text-sm"><a
 							class="opacity-5 text-dark" href="/index.html">Inicio</a></li>
 						<li class="breadcrumb-item text-sm text-dark active"
-							aria-current="page">Nuevo Paciente</li>
+							aria-current="page">Modificar paciente</li>
 					</ol>
 				</nav>
 				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -126,9 +134,9 @@
 		</nav>
 		<!-- End Navbar -->
 		<div>
-			<h4 class="text-center">Añadir nuevo paciente</h4>
+			<h4 class="text-center">Modificar paciente</h4>
 		</div>
-		<form method="post" action="#" th:action="@{/crear/enviar.html}"
+		<form method="post" action="#" th:action="@{/modificar/enviar.html}"
 			th:object="${pacienteForm}">
 			<fieldset>
 				<div class="row justify-content-md-center">
@@ -163,9 +171,8 @@
 					<div class="form-group col col-md-4">
 						<div class="input-group input-group-static mb-4">
 							<label>Teléfono</label> <input type="tel" pattern="[0-9]{9}"
-								class="form-control" placeholder="Teléfono"
-								aria-label="Teléfono" id="telefono" th:field="*{telefono}"
-								required>
+								class="form-control" aria-label="Teléfono" id="telefono"
+								th:field="*{telefono}" required>
 						</div>
 					</div>
 
@@ -211,9 +218,10 @@
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-md-4">
 						<div class="input-group input-group-static mb-4">
-							<label>Fecha de alta</label> <input type="date" class="form-control"
-								placeholder="Fecha de alta" aria-label="Fecha de alta"
-								id="fechaAlta" th:field="*{fecha_alta}">
+							<label>Fecha de alta</label> <input type="date"
+								class="form-control" placeholder="Fecha de alta"
+								aria-label="Fecha de alta" id="fechaAlta"
+								th:field="*{fecha_alta}">
 						</div>
 					</div>
 
@@ -234,7 +242,7 @@
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-md-4">
 						<input class="btn btn-icon btn-3 btn-primary" type="submit"
-							value="Añadir">
+							value="Modificar">
 					</div>
 				</div>
 			</fieldset>

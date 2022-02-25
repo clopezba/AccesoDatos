@@ -9,7 +9,7 @@ CREATE TABLE Paciente
         apellidos varchar(50) NOT NULL,
         edad numeric(3),
         telefono numeric(9) NOT NULL,
-        email varchar(20) NOT NULL,
+        email varchar(60) NOT NULL,
         direccion varchar(50),
         poblacion varchar(20),
         ciudad varchar(15),
