@@ -1,11 +1,15 @@
 package com.accesodatos.gestionpacientes.controlador;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.accesodatos.gestionpacientes.modelo.Paciente;
 import com.accesodatos.gestionpacientes.modelo.PacienteServicios;
@@ -13,35 +17,56 @@ import com.accesodatos.gestionpacientes.modelo.PacienteServicios;
 @Controller
 public class PacienteControlador {
 
-	@Autowired 
+	@Autowired
 	PacienteServicios pacienteServicios;
-	
-	@GetMapping({"/", "/index.html"})
-	public String index(Model model) {
-		model.addAttribute("pacientes", pacienteServicios.buscarTodos());
+
+	@GetMapping({ "/", "/index" })
+	public String index() {
 		return "index";
 	}
 	
-	@GetMapping("/crear.html")
+	@GetMapping("/lista")
+	public String lista(Model model) {
+		model.addAttribute("pacientes", pacienteServicios.buscarTodos());
+		return "lista";
+	}
+
+	@GetMapping("/crear")
 	public String crearPaciente(Model model) {
 		model.addAttribute("pacienteForm", new Paciente());
 		return "crear";
 	}
-	@PostMapping("/crear/enviar.html")
+
+	@PostMapping("/crear/enviar")
 	public String crearPacienteEnviar(@ModelAttribute("pacienteForm") Paciente nuevoPaciente) {
 		pacienteServicios.insertar(nuevoPaciente);
-		return "redirect:/index.html";
+		return "redirect:/lista";
 	}
-	
-	//++++++++[[ TRAER DATOS PACIENTE ]]+++++++++++++++
-	@GetMapping("/modificar.html")
-	public String modificarPaciente(Model model) {
-		model.addAttribute("pacienteForm", new Paciente());
-		return "modificar";
+
+	@GetMapping("/modificar")
+	public String modificarPaciente(@RequestParam Long id, Model model) {
+
+		Paciente paciente = pacienteServicios.buscarId(id);
+
+		if (paciente != null) {
+			model.addAttribute("pacienteForm", paciente);
+			return "modificar";
+		} else {
+			return "redirect:/crear";
+		}
+
 	}
-	@PostMapping("/modificar/enviar.html")
-	public String modificarPacienteEnviar(@ModelAttribute("pacienteForm") Paciente nuevoPaciente) {
-		pacienteServicios.insertar(nuevoPaciente);
-		return "redirect:/index.html";
+
+	@PostMapping("/modificar/enviar")
+	public String modificarPacienteEnviar(@ModelAttribute("pacienteForm") Paciente modifPaciente) {
+		pacienteServicios.editar(modifPaciente);
+		return "redirect:/lista";
 	}
+
+	@GetMapping("/eliminar")
+	public String eliminarPaciente(@RequestParam Long id) {
+		pacienteServicios.borrar(id);
+		return "redirect:/lista";
+	}
+
 }

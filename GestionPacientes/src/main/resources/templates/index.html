@@ -48,7 +48,9 @@
 <script src="https://kit.fontawesome.com/42d5adcbca.js"
 	crossorigin="anonymous"></script>
 <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+	rel="stylesheet">
 
 <!-- CSS Files -->
 <link id="pagestyle" href="assets/css/material-dashboard.css"
@@ -79,14 +81,21 @@
 			<ul class="navbar-nav">
 				<li class="nav-item"><a
 					class="nav-link text-white active bg-gradient-primary"
-					href="/index.html">
+					th:href="@{/index}">
+						<div
+							class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="material-icons opacity-10">home</i>
+						</div> <span class="nav-link-text ms-1">Inicio</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/lista}">
 						<div
 							class="text-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="material-icons opacity-10">list</i>
 						</div> <span class="nav-link-text ms-1">Listado</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link text-white "
-					href="/crear.html">
+				<li class="nav-item"><a class="nav-link text-white"
+					th:href="@{/crear}">
 						<div
 							class="text-white text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="material-icons opacity-10">person_add</i>
@@ -106,120 +115,23 @@
 				<nav aria-label="breadcrumb">
 					<ol
 						class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-						<li class="breadcrumb-item text-sm"><a
-							class="opacity-5 text-dark" href="/index.html">Inicio</a></li>
 						<li class="breadcrumb-item text-sm text-dark active"
-							aria-current="page">Listado</li>
+							aria-current="page"></li>
 					</ol>
 				</nav>
-				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-					id="navbar">
-					<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-						<div class="input-group input-group-outline">
-							<label class="form-label">Buscar...</label> <input type="text"
-								class="form-control">
-						</div>
-					</div>
-				</div>
 			</div>
 		</nav>
 		<!-- End Navbar -->
 		<div>
-			<h4 class="text-center">Listado de pacientes</h4>
+			<h1 class="text-center">¡Bienvenida/o a Cloba Psicología!</h1>
+			<br />
+		</div>
+		<div class="row justify-content-md-center">
+			<div class="card bg-light border-0" style="width: 56rem;">
+				<img class="card-img" src="./assets/img/frase_portada.jpg"
+					alt="Card image">
+			</div>
 		</div>
 		
-		<div class="card">
-		<div class="table-responsive">
-			<table class="table align-items-center mb-0">
-				<thead>
-					<tr>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">nombre</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">apellidos</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">edad</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">teléfono</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">email</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">direccion</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">población</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">ciudad</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">fecha
-							alta</th>
-						<th
-							class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">terapeuta</th>
-						<th class="text-secondary opacity-7"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="paciente : ${pacientes}">
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.id}">Id</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.nombre}">Nombre</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.apellidos}">Apellidos</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.edad}">Edad</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.telefono}">Teléfono</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.email}">Email</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.direccion}">Dirección</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.poblacion}">Población</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.ciudad}">Ciudad</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.fecha_alta}">Fecha de alta</td>
-						<td class="text-center text-xs font-weight-bold mb-0"
-							th:text="${paciente.terapeuta}">Terapeuta</td>
-
-
-						<td class="align-middle"><a href="/modificar.html"
-							class="text-secondary font-weight-normal text-xs"
-							data-toggle="tooltip" data-original-title="Edit user"> Edit </a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-		
-		<div class="container-fluid py-4">
-			<footer class="footer py-4  ">
-				<div class="container-fluid">
-					<div class="row align-items-center justify-content-lg-between">
-						<div class="col-lg-6 mb-lg-0 mb-4">
-							<div
-								class="copyright text-center text-sm text-muted text-lg-start">
-								©
-								<script>
-									document.write(new Date().getFullYear())
-								</script>, made with <i class="fa fa-heart"></i> by Cristina López.
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
-	</main>
-
-	
-
-	<!-- Core -->
-	<script src="../assets/js/core/popper.min.js"></script>
-	<script src="../assets/js/core/bootstrap.min.js"></script>
-
-	<!-- Theme JS -->
-	<script src="../assets/js/material-dashboard.min.js"></script>
 </body>
 </html>

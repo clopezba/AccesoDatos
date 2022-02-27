@@ -1,7 +1,5 @@
 package com.accesodatos.gestionpacientes.modelo;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +9,7 @@ public class Paciente {
 
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 	private String nombre;
 	private String apellidos;
 	private int edad;
@@ -27,15 +25,17 @@ public class Paciente {
 	public Paciente() {
 	}
 
-	public Paciente(String nombre, String apellidos, long telefono, String email) {
+	public Paciente(Long id, String nombre, String apellidos, long telefono, String email) {
+		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.email = email;
 	}
 
-	public Paciente(String nombre, String apellidos, int edad, long telefono, String email, String direccion,
+	public Paciente(Long id, String nombre, String apellidos, int edad, long telefono, String email, String direccion,
 			String poblacion, String ciudad, String fecha_alta, String terapeuta) {
+		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.edad = edad;
@@ -129,7 +129,10 @@ public class Paciente {
 		this.terapeuta = terapeuta;
 	}
 
-	public long getId() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getId() {
 		return id;
 	}
 
