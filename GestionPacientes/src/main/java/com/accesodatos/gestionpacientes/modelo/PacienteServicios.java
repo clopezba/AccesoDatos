@@ -45,4 +45,7 @@ public class PacienteServicios {
 		return repositorio.getById(id);
 	}
 	
+	public List<Paciente> filtrar(String cadena){
+		return repositorio.findByNombreContainsIgnoreCaseOrApellidosContainsIgnoreCaseOrEmailContainsIgnoreCase(cadena, cadena, cadena);
+	}
 }
