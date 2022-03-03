@@ -33,6 +33,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
 	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+
 <title>Gestión de pacientes</title>
 
 <!-- Fonts -->
@@ -55,6 +59,10 @@
 <!-- CSS Files -->
 <link id="pagestyle" href="assets/css/material-dashboard.css"
 	rel="stylesheet" />
+
+<!--  DATATABLES -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/bs5/dt-1.11.5/b-2.2.2/b-html5-2.2.2/datatables.min.css" />
 
 
 </head>
@@ -120,17 +128,6 @@
 							aria-current="page">Listado</li>
 					</ol>
 				</nav>
-				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-					id="navbar">
-					<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-						<div class="input-group input-group-outline">
-							<form>
-								<input type="text" placeholder="Buscar..." name="q"
-									th:value="${param.q}" class="form-control">
-							</form>
-						</div>
-					</div>
-				</div>
 			</div>
 		</nav>
 		<!-- End Navbar -->
@@ -141,46 +138,35 @@
 
 		<div class="card">
 			<div class="table-responsive">
-				<table class="table align-items-center mb-0 datatable-table"
-					id="datatable-basic">
+				<table class="table align-items-center mb-0 datatable table-striped"
+					id="datatable">
 					<thead>
 						<tr>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">id</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">id</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 "
-								data-sortable=""><a href="#" class="dataTable-sorter">nombre</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15 ">nombre</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">apellidos</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">apellidos</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">edad</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">edad</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">teléfono</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">teléfono</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 "
-								data-sortable=""><a href="#" class="dataTable-sorter">email</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">email</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">direccion</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">direccion</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">población</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">población</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 "
-								data-sortable=""><a href="#" class="dataTable-sorter">ciudad</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">ciudad</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">fecha
-									alta</a></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">fecha
+								alta<</th>
 							<th
-								class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-								data-sortable=""><a href="#" class="dataTable-sorter">terapeuta</a></th>
-							<th class="text-secondary opacity-7"></th>
-							<th class="text-secondary opacity-7"></th>
+								class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-15">terapeuta</th>
+							<th class="text-secondary opacity-1"></th>
+							<th class="text-secondary opacity-1"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -283,16 +269,39 @@
 
 	<!-- Theme JS -->
 	<script src="../assets/js/material-dashboard.min.js"></script>
-	<script
-		src="https://demos.creative-tim.com/test/material-dashboard-pro/assets/js/plugins/datatables.js"
-		type="text/javascript"></script>
 
-	<script type="text/javascript">
-		const dataTableBasic = new simpleDatatables.DataTable(
-				"#datatable-basic", {
-					searchable : false,
-					fixedHeight : true
-				});
+	<!--  DataTables JS -->
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/bs5/dt-1.11.5/b-2.2.2/b-html5-2.2.2/datatables.min.js"></script>
+	<!-- <script type="text/javascript"
+		src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>-->
+
+	<script>
+		$(document).ready(function() {
+			$('#datatable').DataTable({
+				"language": {
+					"search": "Buscar:",
+	                "zeroRecords": "No se encontraron datos",
+	                "infoEmpty": "No hay datos para mostrar",
+	                "infoFiltered": "filtrado/s",
+	                "lengthMenu": "Mostrando _MENU_ paciente/s",
+	                "info": "Mostrando del _START_ al _END_ de _TOTAL_ paciente/s",
+	                "paginate": {
+	                    "next": ">",
+	                    "previous": "<"
+	                },
+	            
+                },
+                "ordering": false,
+                "lengthMenu": [5, 10, 25, 50, 75, 100],
+            });
+            
+		});
 	</script>
+
 </body>
 </html>

@@ -1,7 +1,5 @@
 package com.accesodatos.gestionpacientes.controlador;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +23,8 @@ public class PacienteControlador {
 	}
 	
 	@GetMapping("/lista")
-	public String lista(Model model, @RequestParam(name="q", required=false) String query) {
-		List<Paciente> resultado = (query == null) ? pacienteServicios.buscarTodos() : pacienteServicios.filtrar(query);
-		model.addAttribute("pacientes", resultado);
+	public String lista(Model model) {
+		model.addAttribute("pacientes", pacienteServicios.buscarTodos());
 		return "lista";
 	}
 

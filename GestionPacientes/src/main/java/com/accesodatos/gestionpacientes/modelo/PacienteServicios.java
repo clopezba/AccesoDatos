@@ -3,8 +3,6 @@ package com.accesodatos.gestionpacientes.modelo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,7 +43,4 @@ public class PacienteServicios {
 		return repositorio.getById(id);
 	}
 	
-	public List<Paciente> filtrar(String cadena){
-		return repositorio.findByNombreContainsIgnoreCaseOrApellidosContainsIgnoreCaseOrEmailContainsIgnoreCase(cadena, cadena, cadena);
-	}
 }
