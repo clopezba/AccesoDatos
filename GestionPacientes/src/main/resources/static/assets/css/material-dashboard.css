@@ -1837,13 +1837,13 @@ progress {
   .form-control::-webkit-date-and-time-value {
     height: 1.5rem; }
   .form-control::-moz-placeholder {
-    color: #adb5bd;
+    color: #7b809a;
     opacity: 1; }
   .form-control:-ms-input-placeholder {
-    color: #adb5bd;
+    color: #7b809a;
     opacity: 1; }
   .form-control::placeholder {
-    color: #adb5bd;
+    color: #7b809a;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #f0f2f5;
