@@ -1,5 +1,7 @@
 package com.accesodatos.gestionpacientes.controlador;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +32,9 @@ public class PacienteControlador {
 
 	@GetMapping("/crear")
 	public String crearPaciente(Model model) {
-		model.addAttribute("pacienteForm", new Paciente());
+		Paciente pac = new Paciente();
+		pac.setFecha_alta(new Date());
+		model.addAttribute("pacienteForm", pac);
 		return "crear";
 	}
 

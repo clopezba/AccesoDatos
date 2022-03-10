@@ -190,7 +190,7 @@
 							<td class="text-center text-xs font-weight-bold mb-0"
 								th:text="${paciente.ciudad}">Ciudad</td>
 							<td class="text-center text-xs font-weight-bold mb-0"
-								th:text="${paciente.fecha_alta}">Fecha de alta</td>
+								th:text="${#dates.format(paciente.fecha_alta, 'dd-MM-yyyy')}">Fecha de alta</td>
 							<td class="text-center text-xs font-weight-bold mb-0"
 								th:text="${paciente.terapeuta}">Terapeuta</td>
 

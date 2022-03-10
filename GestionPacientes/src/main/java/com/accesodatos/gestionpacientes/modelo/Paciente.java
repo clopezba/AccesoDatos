@@ -1,8 +1,12 @@
 package com.accesodatos.gestionpacientes.modelo;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Paciente {
@@ -12,20 +16,21 @@ public class Paciente {
 	private Long id;
 	private String nombre;
 	private String apellidos;
-	private int edad;
-	private long telefono;
+	private Integer edad;
+	private Long telefono;
 	private String email;
 	private String direccion;
 	private String poblacion;
 	private String ciudad;
-	private String fecha_alta;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fecha_alta;
 	private String terapeuta;
 	
 		
 	public Paciente() {
 	}
 
-	public Paciente(Long id, String nombre, String apellidos, long telefono, String email) {
+	public Paciente(Long id, String nombre, String apellidos, Long telefono, String email) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -33,8 +38,8 @@ public class Paciente {
 		this.email = email;
 	}
 
-	public Paciente(Long id, String nombre, String apellidos, int edad, long telefono, String email, String direccion,
-			String poblacion, String ciudad, String fecha_alta, String terapeuta) {
+	public Paciente(Long id, String nombre, String apellidos, Integer edad, Long telefono, String email, String direccion,
+			String poblacion, String ciudad, Date fecha_alta, String terapeuta) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -64,19 +69,19 @@ public class Paciente {
 		this.apellidos = apellidos;
 	}
 
-	public int getEdad() {
+	public Integer getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
 
-	public long getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(long telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 
@@ -113,11 +118,11 @@ public class Paciente {
 	}
 	
 
-	public String getFecha_alta() {
+	public Date getFecha_alta() {
 		return fecha_alta;
 	}
 
-	public void setFecha_alta(String fecha_alta) {
+	public void setFecha_alta(Date fecha_alta) {
 		this.fecha_alta = fecha_alta;
 	}
 

@@ -141,7 +141,7 @@
 			<fieldset>
 			<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
+						<div class="input-group input-group-static mb-4">
 							<input type="hidden" class="form-control" placeholder="Id"
 								aria-label="Id" aria-describedby="basic-addon2" id="id"
 								th:field="*{id}">
@@ -150,8 +150,9 @@
 				</div>
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="text" class="form-control" placeholder="Nombre"
+						<div class="input-group input-group-static mb-4">
+						<label>Nombre</label>
+							<input type="text" class="form-control" 
 								aria-label="Nombre" aria-describedby="basic-addon2" id="nombre"
 								th:field="*{nombre}" required>
 						</div>
@@ -160,8 +161,9 @@
 
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="text" class="form-control" placeholder="Apellidos"
+						<div class="input-group input-group-static mb-4">
+						<label>Apellidos</label>
+							<input type="text" class="form-control"
 								aria-label="Apellidos" aria-describedby="basic-addon2"
 								id="apellidos" th:field="*{apellidos}" required>
 						</div>
@@ -189,8 +191,9 @@
 
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-md-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="email" class="form-control" placeholder="Email"
+						<div class="input-group input-group-static mb-4">
+						<label>Email</label>
+							<input type="email" class="form-control" 
 								aria-label="Email" aria-describedby="basic-addon2" id="email"
 								th:field="*{email}" required>
 						</div>
@@ -198,8 +201,9 @@
 				</div>
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="text" class="form-control" placeholder="Dirección"
+						<div class="input-group input-group-static mb-4">
+						<label>Dirección</label>
+							<input type="text" class="form-control" 
 								aria-label="Direccion" aria-describedby="basic-addon2"
 								id="direccion" th:field="*{direccion}">
 						</div>
@@ -207,8 +211,9 @@
 				</div>
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="text" class="form-control" placeholder="Población"
+						<div class="input-group input-group-static mb-4">
+						<label>Población</label>
+							<input type="text" class="form-control"
 								aria-label="Población" aria-describedby="basic-addon2"
 								id="poblacion" th:field="*{poblacion}">
 						</div>
@@ -216,8 +221,9 @@
 				</div>
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-lg-4">
-						<div class="input-group input-group-dynamic mb-4">
-							<input type="text" class="form-control" placeholder="Ciudad"
+						<div class="input-group input-group-static mb-4">
+						<label>Ciudad</label>
+							<input type="text" class="form-control" 
 								aria-label="Ciudad" aria-describedby="basic-addon2" id="ciudad"
 								th:field="*{ciudad}">
 						</div>

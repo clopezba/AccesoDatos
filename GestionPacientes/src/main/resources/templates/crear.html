@@ -149,8 +149,8 @@
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-md-4">
 						<div class="input-group input-group-static mb-4">
-							<label>Edad</label> <input type="number" min="16" max="99"
-								class="form-control" aria-label="Edad"
+							<input type="number" min="16" max="99"
+								class="form-control" aria-label="Edad" placeholder="Edad"
 								aria-describedby="basic-addon2" id="edad" th:field="*{edad}">
 						</div>
 					</div>
@@ -158,7 +158,7 @@
 				<div class="row justify-content-md-center">
 					<div class="form-group col col-md-4">
 						<div class="input-group input-group-static mb-4">
-							<label>Teléfono</label> <input type="tel" pattern="[0-9]{9}"
+							<input type="text" pattern="[0-9]{9}" placeholder="Teléfono"
 								class="form-control" aria-label="Teléfono" id="telefono"
 								th:field="*{telefono}" required>
 						</div>
@@ -209,7 +209,7 @@
 							<label>Fecha de alta</label> <input type="date"
 								class="form-control" placeholder="Fecha de alta"
 								aria-label="Fecha de alta" id="fechaAlta"
-								th:field="*{fecha_alta}">
+								th:field="*{fecha_alta}" th:value="*{fecha_alta}">
 						</div>
 					</div>
 
